@@ -134,15 +134,23 @@
     </ul>
   </div>
 
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-primary" id="clicador">Adicione +1</button>
+    <p id="contador">0</p>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script>
 
     // Obtém os elementos do DOM para entrada de tarefas, botão de adicionar e a lista de tarefas
-    const taskInput = document.getElementById('taskInput'); // Campo de entrada da nova tarefa
+        // Obtém os elementos do DOM para entrada de tarefas, botão de adicionar e a lista de tarefas
+        const taskInput = document.getElementById('taskInput'); // Campo de entrada da nova tarefa
     const addTaskBtn = document.getElementById('addTaskBtn'); // Botão para adicionar tarefa
     const taskList = document.getElementById('taskList'); // Lista onde as tarefas serão exibidas
+    const clicador = document.getElementById('clicador');
+    const contador = document.getElementById('contador');
 
-    // Quando o documento for carregado, chama a função para carregar as tarefas salvas
+    // Quando o documento for carregado, chama a função para carregar as tarefas salvas e o contador
     document.addEventListener('DOMContentLoaded', loadTasks);
 
     // Adiciona um ouvinte de evento ao botão para adicionar uma tarefa ao ser clicado
@@ -224,10 +232,30 @@
       localStorage.setItem('tasks', JSON.stringify(tasks)); // Converte o array de tarefas em string e salva
     }
 
-    // Função chamada ao carregar a página para exibir as tarefas salvas
+    // Função que recupera o contador do localStorage
+    function getCounter() {
+      return localStorage.getItem('contador') || 0; // Retorna o contador salvo ou 0 se não existir
+    }
+
+    // Função que salva o contador no localStorage
+    function saveCounter(counter) {
+      localStorage.setItem('contador', counter); // Salva o valor do contador
+    }
+
+    // Função chamada ao carregar a página para exibir as tarefas salvas e o contador
     function loadTasks() {
       renderTasks(); // Exibe as tarefas na tela
+      const counter = getCounter(); // Obtém o contador do localStorage
+      contador.textContent = counter; // Atualiza a tag <p id="contador">
     }
+
+    // Evento de clique no botão "Adicione +1"
+    clicador.addEventListener('click', () => {
+      let counter = getCounter(); // Converte o valor do contador para inteiro
+      counter++; // Incrementa o contador
+      saveCounter(counter); // Salva o novo valor no localStorage
+      contador.textContent = counter; // Atualiza a exibição do contador
+    });
 
   </script>
 </body>
