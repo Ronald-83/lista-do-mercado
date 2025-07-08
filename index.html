@@ -270,6 +270,33 @@
       contador.textContent = counter; // Atualiza a exibição do contador
     });
 
+  let temaEscuro = false; // Variável de controle do tema atual
+
+  document.getElementById('cor').addEventListener('click', () => {
+    const root = document.documentElement;
+
+    if (!temaEscuro) {
+      // Muda para o tema escuro
+      root.style.setProperty('--branco', '#1c1c1c');
+      root.style.setProperty('--cinza', '#b0b0b0');
+      root.style.setProperty('--verde', '#28a745');
+      root.style.setProperty('--cinza-escuro', '#f8f9fa');
+      root.style.setProperty('--azul', '#3399ff');
+      root.style.setProperty('--preto', '#ffffff');
+      document.getElementById('cor').textContent = 'Modo Claro';
+    } else {
+      // Volta para o tema claro
+      root.style.setProperty('--branco', 'white');
+      root.style.setProperty('--cinza', 'gray');
+      root.style.setProperty('--verde', '#28a745');
+      root.style.setProperty('--cinza-escuro', '#343a40');
+      root.style.setProperty('--azul', '#007bff');
+      root.style.setProperty('--preto', 'black');
+      document.getElementById('cor').textContent = 'Modo Escuro';
+    }
+
+    temaEscuro = !temaEscuro; // Inverte o estado
+  });
 </script>
 
 </body>
